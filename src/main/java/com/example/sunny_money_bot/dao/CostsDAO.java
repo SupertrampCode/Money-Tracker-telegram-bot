@@ -1,0 +1,41 @@
+package com.example.sunny_money_bot.dao;
+
+import com.example.sunny_money_bot.entities.Costs;
+import com.example.sunny_money_bot.repository.CostsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Optional;
+
+@Service
+public class CostsDAO {
+
+    private final CostsRepository costsRepository;
+
+    @Autowired
+    public CostsDAO(CostsRepository costsRepository) {
+        this.costsRepository = costsRepository;
+    }
+
+    public Optional<Costs> findById(Long id) {
+        return costsRepository.findById(id);
+    }
+
+    public Collection<Costs> findAll(int pagination) {
+        return costsRepository.findAll(PageRequest.of(0, pagination)).toList();
+    }
+
+    public void deleteByid(Long id) {
+        costsRepository.deleteById(id);
+    }
+
+    public void save(Costs costs) {
+        costsRepository.save(costs);
+    }
+
+    public boolean isExist(long id) {
+        return costsRepository.findById(id).isPresent();
+    }
+}

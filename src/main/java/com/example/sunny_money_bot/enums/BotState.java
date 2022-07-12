@@ -1,13 +1,15 @@
 package com.example.sunny_money_bot.enums;
 
-public enum State {
+public enum BotState {
     START,
     REGISTRATION,
     ADD_NEW_REGULAR_INCOME,
     ENTER_NEW_INCOME,
     ENTER_TYPE_OF_INCOME,
+    ENTER_SINGLE_INCOME,
     ENTER_SUM_OF_INCOME,
     ENTER_NEW_COSTS,
+    ENTER_TYPE_OF_COSTS,
     ENTER_PRIORITY_NEW_COST,
     ENTER_SUM_OF_COST,
     ENTER_REASON_OF_COST,

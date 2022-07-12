@@ -1,6 +1,5 @@
 package com.example.sunny_money_bot.entities;
 
-import com.example.sunny_money_bot.enums.State;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +14,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (name = "id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -24,9 +22,6 @@ public class User {
 
     @Column(name = "salary")
     private BigDecimal salary;
-
-    @Column(name="state")
-    private State state;
 
     @OneToMany(mappedBy = "user")
     private List<Wallet> wallets;

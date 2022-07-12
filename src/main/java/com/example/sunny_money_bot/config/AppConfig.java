@@ -25,7 +25,6 @@ public class AppConfig {
         bot.setBotToken(botConfig.getBotToken());
         bot.setBotUserName(botConfig.getUserName());
         bot.setBotPath(botConfig.getWebHookPath());
-
         return bot;
     }
 }

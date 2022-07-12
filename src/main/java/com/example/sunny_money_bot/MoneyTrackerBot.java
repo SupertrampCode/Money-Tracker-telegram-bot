@@ -33,22 +33,17 @@ public class MoneyTrackerBot extends SpringWebhookBot {
     }
 
     @Override
-    public String getBotToken() {
-        return null;
-    }
-
-    @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        return null;
-    }
-
-    @Override
-    public String getBotPath() {
-        return null;
+        return telegramFacade.handleUpdate(update);
     }
 
     @Override
     public String getBotUsername() {
-        return null;
+        return botUserName;
+    }
+
+    @Override
+    public void onRegister() {
+        super.onRegister();
     }
 }

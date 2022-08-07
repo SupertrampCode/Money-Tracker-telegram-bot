@@ -1,5 +1,6 @@
 package com.example.sunny_money_bot.entities;
 
+import com.example.sunny_money_bot.enums.TransactionsType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,14 +12,15 @@ import java.time.LocalDateTime;
 @Table(name = "incomes")
 @Getter
 @Setter
-public class Income {
+public class Income extends Transactions {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TransactionsType type;
 
     @Column(name = "sum")
     private BigDecimal sum;

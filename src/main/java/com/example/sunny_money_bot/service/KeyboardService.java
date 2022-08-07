@@ -72,4 +72,33 @@ public class KeyboardService {
         keyboardMarkup.setKeyboard(rowsList);
         return keyboardMarkup;
     }
+
+    public InlineKeyboardMarkup costPriorityKeyboard() {
+        InlineKeyboardMarkup CPkeyboard = new InlineKeyboardMarkup();
+        List<InlineKeyboardButton> row = new ArrayList<>();
+        InlineKeyboardButton firstPriorityButton = new InlineKeyboardButton();
+        firstPriorityButton.setCallbackData("firstPriority");
+        firstPriorityButton.setText("1");
+        InlineKeyboardButton secondPriorityButton = new InlineKeyboardButton();
+        secondPriorityButton.setCallbackData("secondPriority");
+        secondPriorityButton.setText("2");
+        InlineKeyboardButton thirdPriorityButton = new InlineKeyboardButton();
+        thirdPriorityButton.setCallbackData("thirdPriority");
+        thirdPriorityButton.setText("3");
+        InlineKeyboardButton fourthPriorityButton = new InlineKeyboardButton();
+        fourthPriorityButton.setCallbackData("fourthPriority");
+        fourthPriorityButton.setText("4");
+        InlineKeyboardButton fifthPriorityButton = new InlineKeyboardButton();
+        fifthPriorityButton.setCallbackData("fifthPriority");
+        fifthPriorityButton.setText("5");
+        row.add(firstPriorityButton);
+        row.add(secondPriorityButton);
+        row.add(thirdPriorityButton);
+        row.add(fourthPriorityButton);
+        row.add(fifthPriorityButton);
+        List<List<InlineKeyboardButton>> rows = new ArrayList<>();
+        rows.add(row);
+        CPkeyboard.setKeyboard(rows);
+        return CPkeyboard;
+    }
 }

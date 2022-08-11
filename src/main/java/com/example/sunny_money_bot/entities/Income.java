@@ -2,9 +2,11 @@ package com.example.sunny_money_bot.entities;
 
 import com.example.sunny_money_bot.enums.TransactionsType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "incomes")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Income extends Transactions {
 
     @Id
@@ -23,6 +26,7 @@ public class Income extends Transactions {
     private TransactionsType type;
 
     @Column(name = "sum")
+    @Min(value=1)
     private BigDecimal sum;
 
     @Column(name = "reason")
@@ -32,6 +36,6 @@ public class Income extends Transactions {
     private LocalDateTime time;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wallet_id")
+    @JoinColumn(name = "wallet_id",nullable = false)
     private Wallet wallet;
 }

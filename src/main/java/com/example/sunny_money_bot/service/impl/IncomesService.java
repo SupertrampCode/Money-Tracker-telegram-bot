@@ -1,4 +1,4 @@
-package com.example.sunny_money_bot.dao;
+package com.example.sunny_money_bot.service.impl;
 
 import com.example.sunny_money_bot.entities.Income;
 import com.example.sunny_money_bot.repository.IncomeRepository;
@@ -10,12 +10,11 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class IncomeDAO {
-
+public class IncomesService {
     private final IncomeRepository incomeRepository;
 
     @Autowired
-    public IncomeDAO(IncomeRepository incomeRepository) {
+    public IncomesService(IncomeRepository incomeRepository) {
         this.incomeRepository = incomeRepository;
     }
 
@@ -38,4 +37,5 @@ public class IncomeDAO {
     public boolean isExist(long id) {
         return incomeRepository.findById(id).isPresent();
     }
+
 }

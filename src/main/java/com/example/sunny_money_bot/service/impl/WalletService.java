@@ -1,4 +1,4 @@
-package com.example.sunny_money_bot.dao;
+package com.example.sunny_money_bot.service.impl;
 
 import com.example.sunny_money_bot.entities.Wallet;
 import com.example.sunny_money_bot.repository.WalletRepository;
@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class WalletDAO {
-
+public class WalletService {
     private final WalletRepository walletRepository;
 
     @Autowired
-    public WalletDAO(WalletRepository walletRepository) {
+    public WalletService(WalletRepository walletRepository) {
         this.walletRepository = walletRepository;
     }
 
@@ -32,4 +31,5 @@ public class WalletDAO {
     public boolean isExist(Long id) {
         return walletRepository.findById(id).isPresent();
     }
+
 }

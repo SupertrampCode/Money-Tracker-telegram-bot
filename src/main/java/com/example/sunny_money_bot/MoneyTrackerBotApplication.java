@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SunnyMoneyBotApplication {
+public class MoneyTrackerBotApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SunnyMoneyBotApplication.class, args);
+        SpringApplication.run(MoneyTrackerBotApplication.class, args);
     }
 
 }

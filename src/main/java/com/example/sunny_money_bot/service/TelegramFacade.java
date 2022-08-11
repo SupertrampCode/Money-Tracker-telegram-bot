@@ -29,7 +29,7 @@ public class TelegramFacade {
 
     public BotApiMethod<?> handleUpdate(Update update) {
         if (update.hasMessage()) {
-            handleMsg(update.getMessage());
+            return handleMsg(update.getMessage());
         }
         return null;
     }
@@ -37,7 +37,7 @@ public class TelegramFacade {
     public BotApiMethod<?> handleMsg(Message message) {
         String inputMsg = message.getText();
         BotState botState;
-        if (inputMsg.matches("[0-9]")) {
+        if (inputMsg.matches("[0-9]+")) {
             botState = botStateCache.getLastUserBotState(message.getFrom().getId());
             switch (botState) {
                 case ENTER_NEW_INCOME:
@@ -59,13 +59,17 @@ public class TelegramFacade {
                 botState = BotState.ENTER_NEW_COSTS;
                 break;
             case "Get report":
-                botState=BotState.GET_REPORT;
+                botState = BotState.GET_REPORT;
                 break;
             default:
-                botState=BotState.START;
-                return messageHandler.handle(message,botState);
+                if (botStateCache.getLastUserBotState(message.getFrom().getId()) == BotState.ENTER_SUM_OF_COST) {
+                    botState = BotState.ENTER_REASON_OF_COST;
+                    return messageHandler.handle(message, botState);
+                }
+                botState = BotState.START;
+                return messageHandler.handle(message, botState);
         }
-        return messageHandler.handle(message,botState);
+        return messageHandler.handle(message, botState);
     }
 
 

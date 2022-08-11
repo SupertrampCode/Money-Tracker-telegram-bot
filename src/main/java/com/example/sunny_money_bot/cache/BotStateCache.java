@@ -15,11 +15,12 @@ public class BotStateCache {
         public void saveBotState(Long userId, BotState botState) {
             if (botStateMap.containsKey(userId)){
                 botStateMap.get(userId).add(botState);
+            }else {
+                botStateMap.put(userId, new ArrayList<>());
+                botStateMap.get(userId).add(botState);
             }
-            botStateMap.put(userId, new ArrayList<>());
-            botStateMap.get(userId).add(botState);
-        }
 
+        }
         public List<BotState> getUserBotStates (Long userId){
             return botStateMap.get(userId);
         }

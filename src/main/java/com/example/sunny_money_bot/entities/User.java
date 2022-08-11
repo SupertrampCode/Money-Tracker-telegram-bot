@@ -1,12 +1,12 @@
 package com.example.sunny_money_bot.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 @Getter
@@ -18,11 +18,10 @@ public class User {
     private Long id;
 
     @Column(name = "name")
+    @NotNull
     private String name;
 
-    @Column(name = "salary")
-    private BigDecimal salary;
-
-    @OneToMany(mappedBy = "user")
-    private List<Wallet> wallets;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Wallet wallet;
 }

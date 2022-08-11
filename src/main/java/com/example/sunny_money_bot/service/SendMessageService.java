@@ -1,22 +1,34 @@
 package com.example.sunny_money_bot.service;
 
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
-@Component
+@Service
 public class SendMessageService {
 
-    public SendMessage createMessageWithReplyKeyboard (Long chatId,
-                                                        String textMsg,
-                                                        ReplyKeyboardMarkup replyKeyboardMarkup){
+    public SendMessage createMsgWithReplyKeyboard(Long chatId,
+                                                  String textMsg,
+                                                  ReplyKeyboardMarkup replyKeyboardMarkup) {
         final SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(String.valueOf(chatId));
         sendMessage.setText(textMsg);
-        if (replyKeyboardMarkup!=null){
+        if (replyKeyboardMarkup != null) {
             sendMessage.setReplyMarkup(replyKeyboardMarkup);
         }
-    return sendMessage;}
+        return sendMessage;
+    }
+
+    public SendMessage createMsgWithInlineKeyboard(Long chatId,
+                                                   String textMsg,
+                                                   InlineKeyboardMarkup inlineKeyboardMarkup) {
+        final SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(String.valueOf(chatId));
+        sendMessage.setText(textMsg);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+        return sendMessage;
+    }
 }

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public abstract class Transactions {
-    private Long id;
     private BigDecimal sum;
     private LocalDateTime time;
     private TransactionsType type;

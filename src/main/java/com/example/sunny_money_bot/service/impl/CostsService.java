@@ -1,4 +1,4 @@
-package com.example.sunny_money_bot.dao;
+package com.example.sunny_money_bot.service.impl;
 
 import com.example.sunny_money_bot.entities.Costs;
 import com.example.sunny_money_bot.repository.CostsRepository;
@@ -10,12 +10,11 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class CostsDAO {
-
+public class CostsService {
     private final CostsRepository costsRepository;
 
     @Autowired
-    public CostsDAO(CostsRepository costsRepository) {
+    public CostsService(CostsRepository costsRepository) {
         this.costsRepository = costsRepository;
     }
 

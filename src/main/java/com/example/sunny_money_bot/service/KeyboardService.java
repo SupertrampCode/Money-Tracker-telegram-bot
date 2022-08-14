@@ -37,7 +37,7 @@ public class KeyboardService {
         buttonYes.setText("Yes");
         buttonYes.setCallbackData("buttonYes");
         InlineKeyboardButton buttonNo = new InlineKeyboardButton();
-        buttonYes.setText("No");
+        buttonNo.setText("No");
         buttonNo.setCallbackData("buttonNo");
         List<InlineKeyboardButton> buttonsRow = new ArrayList<>();
         buttonsRow.add(buttonYes);
@@ -54,11 +54,11 @@ public class KeyboardService {
         everyDayButton.setText("Every day");
         everyDayButton.setCallbackData("everyDay");
         InlineKeyboardButton everyMonthButton = new InlineKeyboardButton();
-        everyDayButton.setText("Every month");
-        everyDayButton.setCallbackData("everyMonth");
+        everyMonthButton.setText("Every month");
+        everyMonthButton.setCallbackData("everyMonth");
         InlineKeyboardButton everyYearButton = new InlineKeyboardButton();
-        everyDayButton.setText("Every year");
-        everyDayButton.setCallbackData("everyYear");
+        everyYearButton.setText("Every year");
+        everyYearButton.setCallbackData("everyYear");
         List<InlineKeyboardButton> row1 = new ArrayList<>();
         row1.add(everyDayButton);
         List<InlineKeyboardButton> row2 = new ArrayList<>();

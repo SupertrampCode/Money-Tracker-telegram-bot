@@ -1,4 +1,4 @@
-package com.example.sunny_money_bot.service.impl;
+package com.example.sunny_money_bot.service;
 
 import com.example.sunny_money_bot.entities.User;
 import com.example.sunny_money_bot.entities.Wallet;
@@ -16,33 +16,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final WalletRepository walletRepository;
 
-    @Value("${msg.successful.reg}")
-    private String successRegMsg;
-
     @Autowired
     public UserService(UserRepository userRepository, WalletRepository walletRepository) {
         this.userRepository = userRepository;
         this.walletRepository = walletRepository;
     }
 
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    public void save(User user) {
-        userRepository.save(user);
-    }
-
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
-    }
-
-    public boolean isExist(Long id) {
-        return userRepository.findById(id).isPresent();
-    }
-
-    public void saveNewUser(Message message, long userId) {
+    public void saveNewUser(Message message) {
         String userName = message.getFrom().getUserName();
+        long userId = message.getFrom().getId();
         User user = new User();
         user.setId(userId);
         user.setName(userName);
@@ -50,7 +32,7 @@ public class UserService {
         wallet.setUser(user);
         wallet.setId(userId);
         user.setWallet(wallet);
-        save(user);
+        userRepository.save(user);
         walletRepository.save(wallet);
     }
 

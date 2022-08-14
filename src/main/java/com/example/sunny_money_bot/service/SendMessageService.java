@@ -9,6 +9,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 @Service
 public class SendMessageService {
 
+    public SendMessage sendSimpleMessage (Long chatId,String textMsg) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(String.valueOf(chatId));
+        sendMessage.setText(textMsg);
+        return sendMessage;
+    }
+
     public SendMessage createMsgWithReplyKeyboard(Long chatId,
                                                   String textMsg,
                                                   ReplyKeyboardMarkup replyKeyboardMarkup) {

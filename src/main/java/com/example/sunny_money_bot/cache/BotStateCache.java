@@ -13,21 +13,21 @@ public class BotStateCache {
         private final Map<Long, List<BotState>> botStateMap = new HashMap<>();
 
         public void saveBotState(Long userId, BotState botState) {
-            if (botStateMap.containsKey(userId)){
-                botStateMap.get(userId).add(botState);
-            }else {
-                botStateMap.put(userId, new ArrayList<>());
-                botStateMap.get(userId).add(botState);
+            if (botStateMap.containsKey(userId)) {
+                List<BotState> botStates = botStateMap.get(userId);
+                botStates.add(botState);
+            }else{
+                List<BotState> botStates = new ArrayList<>();
+                botStates.add(botState);
+                botStateMap.put(userId,botStates);
+                }
             }
-
-        }
-        public List<BotState> getUserBotStates (Long userId){
-            return botStateMap.get(userId);
-        }
 
         public BotState getLastUserBotState (Long userId){
             List<BotState> botStates = botStateMap.get(userId);
+            if (botStates!=null){
             int index = botStates.size()-1;
-            return botStates.get(index);
+            return botStates.get(index);}
+            else {return BotState.REGISTRATION;}
         }
 }

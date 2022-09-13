@@ -2,8 +2,8 @@ package com.example.sunny_money_bot.handlers;
 
 import com.example.sunny_money_bot.enums.BotState;
 import com.example.sunny_money_bot.service.KeyboardService;
+import com.example.sunny_money_bot.service.ReportService;
 import com.example.sunny_money_bot.service.SendMessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -24,10 +24,14 @@ public class CallBackQueryHandler implements Handler<CallbackQuery, BotState> {
 
     private final KeyboardService keyboardService;
 
-    @Autowired
-    public CallBackQueryHandler(SendMessageService sendMessageService, KeyboardService keyboardService) {
+    private final ReportService reportService;
+
+    public CallBackQueryHandler(SendMessageService sendMessageService,
+                                KeyboardService keyboardService,
+                                ReportService reportService) {
         this.sendMessageService = sendMessageService;
         this.keyboardService = keyboardService;
+        this.reportService = reportService;
     }
 
     @Override
@@ -54,6 +58,12 @@ public class CallBackQueryHandler implements Handler<CallbackQuery, BotState> {
                         chatId,
                         choosePriority,
                         keyboardService.costPriorityKeyboard()
+                );
+            case GET_REPORT:
+                return sendMessageService.createMsgWithReplyKeyboard(
+                        chatId,
+                        reportService.reportForTimeInterval(data.getData()),
+                        keyboardService.mainMenuKeyboard()
                 );
         }
         return null;

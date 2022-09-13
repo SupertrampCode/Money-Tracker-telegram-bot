@@ -32,9 +32,13 @@ public class MessageHandler implements Handler<Message, BotState> {
     @Value("${msg.succesfulTransactionSave}")
     private String transactionSaved;
 
+    @Value("${msg.chooseTimeInterval}")
+    private String chooseTimeInterval;
+
     private final UserRepository userRepository;
 
 
+    @Autowired
     public MessageHandler(UserService userService,
                           KeyboardService keyboardService,
                           SendMessageService sendMessageService,
@@ -83,6 +87,12 @@ public class MessageHandler implements Handler<Message, BotState> {
                         createMsgWithReplyKeyboard(chatId,
                                 hiMsg,
                                 keyboardService.mainMenuKeyboard());
+            case GET_REPORT:
+                return sendMessageService
+                        .createMsgWithInlineKeyboard(
+                                chatId,
+                                chooseTimeInterval,
+                                keyboardService.timeIntervalOfReportKeyboard());
         }
         return null;
     }

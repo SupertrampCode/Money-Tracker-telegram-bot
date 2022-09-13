@@ -59,17 +59,10 @@ public class KeyboardService {
         InlineKeyboardButton everyYearButton = new InlineKeyboardButton();
         everyYearButton.setText("Every year");
         everyYearButton.setCallbackData("everyYear");
-        List<InlineKeyboardButton> row1 = new ArrayList<>();
-        row1.add(everyDayButton);
-        List<InlineKeyboardButton> row2 = new ArrayList<>();
-        row2.add(everyMonthButton);
-        List<InlineKeyboardButton> row3 = new ArrayList<>();
-        row3.add(everyYearButton);
-        List<List<InlineKeyboardButton>> rowsList = new ArrayList<>();
-        rowsList.add(row1);
-        rowsList.add(row2);
-        rowsList.add(row3);
-        keyboardMarkup.setKeyboard(rowsList);
+        keyboardMarkup.setKeyboard(inlineKeyboardOneButtonPerRow(
+                everyDayButton,
+                everyMonthButton,
+                everyYearButton));
         return keyboardMarkup;
     }
 
@@ -100,5 +93,34 @@ public class KeyboardService {
         rows.add(row);
         CPkeyboard.setKeyboard(rows);
         return CPkeyboard;
+    }
+
+    public InlineKeyboardMarkup timeIntervalOfReportKeyboard() {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        InlineKeyboardButton lastSevenDaysButton = new InlineKeyboardButton();
+        lastSevenDaysButton.setText("Report for last 7 days");
+        lastSevenDaysButton.setCallbackData("week");
+        InlineKeyboardButton lastMonthButton = new InlineKeyboardButton();
+        lastMonthButton.setText("Report for last 30 days");
+        lastMonthButton.setCallbackData("month");
+        InlineKeyboardButton lastThreeMonthsButton = new InlineKeyboardButton();
+        lastThreeMonthsButton.setText("Report for last 90 days");
+        lastThreeMonthsButton.setCallbackData("threeMonths");
+        inlineKeyboardMarkup.setKeyboard(
+                inlineKeyboardOneButtonPerRow(
+                        lastSevenDaysButton,
+                        lastMonthButton,
+                        lastThreeMonthsButton));
+        return inlineKeyboardMarkup;
+    }
+
+    public List<List<InlineKeyboardButton>> inlineKeyboardOneButtonPerRow(InlineKeyboardButton... buttons) {
+        List<List<InlineKeyboardButton>> rowsList = new ArrayList<>();
+        for (InlineKeyboardButton button: buttons) {
+            List<InlineKeyboardButton> row = new ArrayList<>();
+            row.add(button);
+            rowsList.add(row);
+        }
+        return rowsList;
     }
 }

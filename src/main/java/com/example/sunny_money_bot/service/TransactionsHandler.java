@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,15 +55,11 @@ public class TransactionsHandler {
         } else throw new IllegalArgumentException("Update Wallet Balance got wrong value!");
     }
 
-    //TODO make regular changing balance, add choose of transactions frequency.
     @Scheduled(cron = "0 0 0 * * *")
     public void everyDayTransactionsHandler() {
-        Set<Transaction> allTransactions = new HashSet<>();
-        allTransactions.addAll(incomeRepository.findAll());
-        allTransactions.addAll(costsRepository.findAll());
-        List<Transaction>everyDayTransactions=allTransactions.stream()
-                .filter(transaction -> transaction.getTransactionFrequency() == TransactionFrequency.EVERY_DAY)
-                .collect(Collectors.toList());
+        List<Transaction> everyDayTransactions = new ArrayList<>();
+        everyDayTransactions.addAll(incomeRepository.getAllByTransactionFrequency(TransactionFrequency.EVERY_DAY));
+        everyDayTransactions.addAll(costsRepository.getAllByTransactionFrequency(TransactionFrequency.EVERY_DAY));
         if (everyDayTransactions.size()!=0){
         saveTransactionsWithNewDate(everyDayTransactions);
                 everyDayTransactions.forEach(this::updateWalletBalance);
@@ -71,13 +68,12 @@ public class TransactionsHandler {
 
     @Scheduled(cron = "0 0 0 1 * *")
     public void everyMonthTransactionHandler() {
-        Set<Transaction> allTransactions = new HashSet<>();
-        allTransactions.addAll(incomeRepository.findAll());
-        allTransactions.addAll(costsRepository.findAll());
+        List<Transaction> everyMonthTransactions = new ArrayList<>();
+        everyMonthTransactions.addAll(incomeRepository.getAllByTransactionFrequency(TransactionFrequency.EVERY_MONTH));
+        everyMonthTransactions.addAll(costsRepository.getAllByTransactionFrequency(TransactionFrequency.EVERY_MONTH));
         int monthNumber = LocalDateTime.now().getMonthValue();
         if (monthNumber == 1) {
-            List<Transaction> decemberTransactionsList = allTransactions.stream()
-                    .filter(transaction -> transaction.getTransactionFrequency() == TransactionFrequency.EVERY_MONTH)
+            List<Transaction> decemberTransactionsList = everyMonthTransactions.stream()
                     .filter(transaction -> transaction.getTime().getMonthValue() == 12)
                     .collect(Collectors.toList());
             if (decemberTransactionsList.size() != 0) {
@@ -85,8 +81,7 @@ public class TransactionsHandler {
                 decemberTransactionsList.forEach(this::updateWalletBalance);
             }
         } else {
-            List<Transaction> transactionsList = allTransactions.stream()
-                    .filter(transaction -> transaction.getTransactionFrequency() == TransactionFrequency.EVERY_MONTH)
+            List<Transaction> transactionsList = everyMonthTransactions.stream()
                     .filter(transaction -> transaction.getTime().getMonthValue() + 1 == monthNumber)
                     .collect(Collectors.toList());
             if (transactionsList.size() != 0) {
@@ -99,8 +94,8 @@ public class TransactionsHandler {
     @Scheduled(cron = "0 0 0 1 1 *")
     public void everyYearTransactionHandler() {
         Set<Transaction> allTransactions = new HashSet<>();
-        allTransactions.addAll(incomeRepository.findAll());
-        allTransactions.addAll(costsRepository.findAll());
+        allTransactions.addAll(incomeRepository.getAllByTransactionFrequency(TransactionFrequency.EVERY_YEAR));
+        allTransactions.addAll(costsRepository.getAllByTransactionFrequency(TransactionFrequency.EVERY_YEAR));
         int year = LocalDateTime.now().getYear();
         List<Transaction> everyYearTransactions = allTransactions.stream()
                 .filter(transaction -> transaction.getTime().getYear() + 1 == year)
